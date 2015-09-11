@@ -8,8 +8,9 @@ For pushing changes you can run command like this (from bash) in root of reposit
 
 
 ```
-git pull $$ (( git add --all && git commit -m $(date  +%F_%R) ) && git push) 
+( git add --all && git commit -m $(date  +%F_%R) ) && git push 
 ```
 
+You can use `crond`  for syncronizing files. For example pull changes at morning from work and push at evening.
 
-Need to syncronize files before updateing
+
