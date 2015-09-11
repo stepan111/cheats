@@ -38,6 +38,3 @@ iptables -D INPUT 2
 
 # 2.b) OR INSERT a rule.
 iptables -I INPUT {LINE_NUMBER} -i eth1 -p tcp --dport 21 -s 123.123.123.123 -j ACCEPT -m comment --comment "This rule is here for this reason"
-
-# Hashlimit example
--A INPUT -p tcp -m tcp --dport 1723 --syn -m hashlimit --hashlimit-above 3/minute --hashlimit-mode  srcip --hashlimit-name pptp --hashlimit-htable-expire 30000 -j DROP

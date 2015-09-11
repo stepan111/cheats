@@ -19,8 +19,5 @@ diff -q version1 version2
 # To report whether the files are identical:
 diff -s version1 version2
 
-#List at one screen two files with differences
-diff -y file1.txt file2.txt
-
 # To diff the output of two commands or scripts:
 diff <(command1) <(command2)

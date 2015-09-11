@@ -1,9 +1,5 @@
-# Printout date in format suitable for affixing to file names
+# Print date in format suitable for affixing to file names
 date +"%Y%m%d_%H%M%S"
-date +_%d_%m_%Y
 
-# Print next friday date
-date  --date="next Friday"
-
-# Print yesterday's date
-date  --date="1 days ago" +%Y%m%ddate  --date="1 days ago" +%Y%m%ddate  --date="1 days ago" +%Y%m%d
+# Convert Unix timestamp to Date
+date -d @1440359821

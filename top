@@ -24,12 +24,3 @@ top -h
 
 # Order the display by sorting on <key> in descending order
 top -o <key>
-
-#Top metrics explain
-us Percentage of CPU time spent in user space.
-sy Percentage of CPU time spent in kernel space.
-ni Percentage of CPU time spent on low priority processes.
-id Percentage of CPU time spent idle.
-wa Percentage of CPU time spent in wait (on disk).
-hi Percentage of CPU time spent handling hardware interrupts.
-si Percentage of CPU time spent handling software interrupts. 

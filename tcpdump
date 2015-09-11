@@ -14,7 +14,7 @@ tcpdump -nn -i any host 173.194.40.120 and port 80
 
 # Make a grep on tcpdump (ASCII)
 # -A  => Show only ASCII in packets.
-# -s0 => By default, tcpdump only captures 68 bytes (MAX 65535).
+# -s0 => By default, tcpdump only captures 68 bytes.
 tcpdump -i -A any host 173.194.40.120 and port 80 | grep 'User-Agent'
 
 # With ngrep
@@ -33,9 +33,6 @@ tcpdump 'tcp[tcpflags] & (tcp-syn|tcp-fin) != 0 and not src and dst net local_ad
 
 # To display all IPv4 HTTP packets that come or arrive on port 80 and that contain only data (no SYN, FIN no, no packet containing an ACK)
 tcpdump 'tcp port 80 and (((ip[2:2] - ((ip[0]&0xf)<<2)) - ((tcp[12]&0xf0)>>2)) != 0)'
-
-# Use offset 38 byte and  capture packet whose next two bytes match pattern
-tcpdump ' (ip[38:2] = 0xc021) or (ip[38:2] = 0xc023) or (ip[38:2] = 0xc223) or (ip[38:2] = 0xc025) '  
 
 # Saving captured data
 tcpdump -w file.cap
@@ -64,6 +61,3 @@ tcpdump -X
 # - not dst host 8.8.8.8
 # - src net 67.207.148.0 mask 255.255.255.0
 # - src net 67.207.148.0/24
-
-# MAC search
-tcpdump -i PPPPoE_VLAN-429 ether host 00:19:db:ac:54:7f

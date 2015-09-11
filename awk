@@ -1,24 +1,11 @@
 # sum integers from a file or stdin, one integer per line:
 printf '1\n2\n3\n' | awk '{ sum += $1} END {print sum}'
 
-# Search from file 4 days ago
-awk -v days="-4" '$4 ~ strftime("%e/%b/%Y",systime()+(days*86400)){print $1 }' httpd/access_log httpd/access_log
+# using specific character as separator to sum integers from a file or stdin
+printf '1:2:3' | awk -F ":" '{print $1+$2+$3}'
 
-#Comparision example 
-BEGIN {                                                                                                                      
-        count =0;                                                                                                            
-        while (( getline line  <  from_file ) > 0 )
+# print a multiplication table
+seq 9 | sed 'H;g' | awk -v RS='' '{for(i=1;i<=NF;i++)printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'
 
-        {
-                array[++count]=line;
-        }
-        close (from_file);
-}                                                                                                                            
-{                                                                                                                            
-                for ( id  in array){
-                        if ($1 == array[id] )
-                        print $1":ADD" ;
-                }
-
-}
-
+# Specify output separator character
+printf '1 2 3' | awk 'BEGIN {OFS=":"}; {print $1,$2,$3}'

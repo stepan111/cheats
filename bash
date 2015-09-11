@@ -13,14 +13,15 @@ in
     3*) echo "something beginning with 3 found";;
 esac
 
-#Hide output of script
-&>/dev/null
+# Turn on debugging:
+set -x
 
-#Process substitution
-echo test | tee >(cat) | cat
-test
-test
+# Turn off debugging:
+set +x
 
-# Read examples
-read VAR	#Read 1 line into var
-read -n1 VAR 	#Read 1 character inteo VAR
+# Retrieve N-th piped command exit status
+printf 'foo' | fgrep 'foo' | sed 's/foo/bar/'
+echo ${PIPESTATUS[0]}  # replace 0 with N
+
+# Lock file:
+( set -o noclobber; echo > my.lock ) || echo 'Failed to create lock file'

@@ -1,39 +1,5 @@
-# Cisco get vlan list
- snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-4.core.nk.vega-ua.net CISCO-VTP-MIB::vtpVlanName
+# To retrieve all of the variables under system for host zeus
+snmpwalk -Os -c public -v 1 zeus system
 
-# Cisco CAM table for specified vlan
-snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-4.core.nk.vega-ua.net BRIDGE-MIB::dot1dTpFdbAddress
-
-# Cisco get portnumber for specified MAC (example of MAC .0.4.150.54.179.137)
- snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-4.core.nk.vega-ua.net BRIDGE-MIB::dot1dTpFdbPort.0.4.150.54.179.98
-
-# Get ifDescr
-snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-3.core.nk.vega-ua.net ifDescr.10141
-
-# Cisco Show trunk ports
- snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-3.core.nk.vega-ua.net CISCO-VTP-MIB::vlanTrunkPortDynamicStatus
-
-# Cisco show access vlan port mapping
-snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-2.core.nk.vega-ua.net CISCO-VLAN-MEMBERSHIP-MIB::vmVlan
-
-# Cisco show vlans on trunk ports 
-snmpwalk -Ob -v2c -c public@42  cs-admiralskaya23-2.core.nk.vega-ua.net CISCO-VTP-MIB::vlanTrunkPortVlansEnabled
-
-# Extreme get  vlanId list
-snmpwalk -v2c -c public ex-test  EXTREME-VLAN-MIB::extremeVlanIfVlanId
-
-# Extreme get vlan description 
-snmpwalk -v2c -c public ex-test  EXTREME-VLAN-MIB::extremeVlanIfDescr
-
-# Extreme get vlan ports untagged
-snmpwalk -v2c -c public ex-test  EXTREME-VLAN-MIB::extremeVlanOpaqueUntaggedPorts.1000123
-
-# Extreme get vlan ports tagged
-snmpwalk -v2c -c public ex-test  EXTREME-VLAN-MIB::extremeVlanOpaqueTaggedPorts.1000123
-
-# Extreme ports display strings
-snmpwalk -v2c -c public ex-test  IF-MIB::ifAlias
-
-
-#http://www.opennet.ru/tips/1864_cisco_vlan_snmp_monitoring.shtml
-#http://www.cisco.com/c/en/us/tech/ip/simple-network-management-protocol-snmp/index.html
+# To retrieve the scalar values, but omit the sysORTable for host zeus
+snmpwalk -Os -c public -v 1 -CE sysORTable zeus system

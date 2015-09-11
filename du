@@ -1,4 +1,5 @@
-#Check the current directory size
+# To sort directories/files by size
+du -sk *| sort -rn
+
+# To show cumulative humanreadable size
 du -sh
-# Size of directories in current directory
-du -hd 1

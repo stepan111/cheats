@@ -10,18 +10,3 @@ find -name *.pdf | xargs -I{} rm -rf '{}'
 # -n1 => One file by one file. ( -n2 => 2 files by 2 files )
 
 find -name *.pdf | xargs -I{} -n1 echo '&{}='
-
-#Run S.M.A.R.T. long test on every disk at the system
-ls /dev/sd* | grep -v "[0-9]" | xargs -n 1 -I ? smartctl -t long ?  
-
-# List S.M.A.R.T. test results from all disk in the system
-ls /dev/sd* | grep -v "[0-9]" | xargs -n 1 -I ? smartctl -l selftest ? 
-
-#Trace executing files by process PROC
-ps ax | grep PROC | grep -v grep | awk '{print"-p " $1}' | xargs strace -f -s99999 -e trace=clone,execve
-
-#Run parallel bash function dolisten with two arguments
-export -f dolisten
-echo -e "udp 3035 udp 3038 udp 3039 tcp 3035 tcp 3038 tcp 3039" \
-       | xargs -n2 -P6 bash -c ' dolisten  "$@"' --
-

@@ -9,7 +9,3 @@ ls -lh
 
 # Display files, sorted by size
 ls -S
-
-# Recursively look 
-ls -R
-
