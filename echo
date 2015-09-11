@@ -1,0 +1,5 @@
+# Print OK at the end of a line
+echo  "$(tput hpa $(tput cols))$(tput cub 6)[OK]"	
+
+# Print something without transition to the next line
+echo -nр

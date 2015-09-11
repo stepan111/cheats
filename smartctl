@@ -1,0 +1,15 @@
+# Show selftest results
+smartctl -l selftest /dev/sda
+
+# Check overall health
+smartctl --health /dev/sda
+
+# List all info 
+smartctl --all /dev/sda
+
+# Run short selftest
+smartctl -t short /dev/sda
+
+# Run long test
+smartctl -t long /dev/sda
+

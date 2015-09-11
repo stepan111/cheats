@@ -1,0 +1,32 @@
+# Configure port Gi0/2  to default
+default interface Gi0/2
+
+# Interface range configuration
+interface range GigabitEthernet 0/18 - 21 , 0/11
+
+# Cpu troubleshoot
+show process 
+
+# Nat 
+show ip nat translation
+
+#Ethernet debug
+show int GigabitEthernet 0/28 counters errors
+show int GigabitEthernet 0/28 transceiver properties
+show int GigabitEthernet 0/28 transceiver detail
+show int GigabitEthernet 0/28 stats
+
+# Broadcast storm
+show storm-control 
+
+# Example commands
+show version | include Model number
+show int status | include [CEce][XSxs][0123456789].*connected
+
+# ASIC stats on 36XX and 37XX
+#  View ASIC to port mapping
+show platform pm if-numbers	# In the "port" column, look at the first number
+# Drops on asic
+show platform port-asic stats drop asic 2
+# Drops on interface
+show platform port-asic stats drop port 1

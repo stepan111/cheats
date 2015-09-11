@@ -1,0 +1,6 @@
+# Extract archive :
+cpio -id < initrd.img
+
+# Create cpio archive
+find . | cpio --create --format='newc' > ../newinitrd
+

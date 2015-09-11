@@ -1,0 +1,76 @@
+
+show switch | include  "System UpTime"
+
+show license
+
+show version
+
+show flow-redirect
+# redirect-name  - name—Specifies the name of the flow-redirect that must be used to redirect matching traffic.
+
+show access-list counter
+
+show bootprelay configuration | exclude ": Disabled"
+
+configure vlan mgmt ipaddress 10.0.0.1 255.255.255.0
+
+show dot1p
+
+# Port configuration example
+configure ports 1:6 display-string sw-1-tereshkovoy13
+configure "vl910-sw-mgmt" add ports 1:6 untagged "s7-fttb"
+configure "vl628-UL-MVR-Source" add ports 1:6 tagged
+configure "vl512-local-block3" add ports 1:6 tagged "s7-fttb"
+configure ports 1:6 auto off speed 1000 duplex full
+configure stp s0 ports restricted-role enable 1:6
+configure stp s7 ports restricted-role enable 1:6
+
+# Vlan configuration example
+create vlan vl603-UL-Zlatobank
+configure vlan vl603-UL-Zlatobank tag 603
+configure eaps Main2 add protected vl603-UL-Zlatobank
+
+configure vlan vl603-UL-Zlatobank add ports 49-50 tagged
+show vlan tag 603 | inc Tag:
+show eaps | inc Main2
+
+# Vlan interface config
+create vlan vl4000
+configure "vl4000" tag 4000
+configure "vl4000" add ports 1:24 tagged
+configure vlan "vl4000" ipaddress 10.0.0.1 255.255.255.0
+ping 10.0.0.254
+
+# Delete all vlans 
+configure mirr to port PORTNUMBER
+disable mirroring
+
+# Switch XOS upgrade
+download image 10.0.0.254 summitX-15.3.1.4-patch1-7.xos vr "VR-Default" secondary
+use image {primary | secondary}
+
+# Tftp operation
+tftp put 10.60.0.25 vr "VR-Default" IP-Auto.pol TEST/IP-Auto.pol
+tftp get 10.0.0.254 vr "VR-Default" TEST/IP-Auto.pol IP-Auto.pol
+upload configuration 10.60.0.249 /Extreme/ASCII/ex-vuzovskij.xsf vr VR-Default
+
+# Unconfigure switch
+unconfigure switch all
+
+#Run script
+load script <filename>
+
+# Limit MAC on port per vlan 
+configure ports 3 vlan "vl784-L2-MTB" limit-learning 1 action stop-learning
+
+# Vlan translation 
+configure vlan "vl3000-translation-test" vlan-translation add member-vlan "vl0483-TestExtreme"
+
+# Selective q-in-q
+create vman test
+config vman test tag 100
+enable vman cep egress filtering ports 23 # May not need
+configure vman test add ports 23 cep cvid 103
+conf test add ports 1 tagged
+# Configure ethertype for qinq frames to allow other equipment understand tagged frames
+configure vman ethertype 0x8100

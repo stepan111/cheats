@@ -1,0 +1,2 @@
+# Binary compare two file 
+cmp file1 file2

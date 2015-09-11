@@ -1,0 +1,3 @@
+#Copy partition table from one disk to another
+sfdisk -d /dev/sda | sfdisk /dev/sdb
+

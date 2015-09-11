@@ -1,0 +1,2 @@
+# List count of occurances lines in file.txt
+uniq -c file.txt

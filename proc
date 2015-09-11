@@ -1,0 +1,10 @@
+# /proc/net/ip_conntrack format 
+tcp      6 117 SYN_SENT src=192.168.1.6 dst=192.168.1.9 sport=32775 \
+     dport=22 [UNREPLIED] src=192.168.1.9 dst=192.168.1.6 sport=22 \
+     dport=32775 use=2
+     
+
+This example contains all the information that the conntrack module maintains to know which state a specific connection is in. First of all, we have a protocol, which in this case is tcp. Next, the same value in normal decimal coding. After this, we see how long this conntrack entry has to live. This value is set to 117 seconds right now and is decremented regularly until we see more traffic. This value is then reset to the default value for the specific state that it is in at that relevant point of time. Next comes the actual state that this entry is in at the present point of time. In the above mentioned case we are looking at a packet that is in the SYN_SENT state. The internal value of a connection is slightly different from the ones used externally with iptables. The value SYN_SENT tells us that we are looking at a connection that has only seen a TCP SYN packet in one direction. Next, we see the source IP address, destination IP address, source port and destination port. At this point we see a specific keyword that tells us that we have seen no return traffic for this connection. Lastly, we see what we expect of return packets. The information details the source IP address and destination IP address (which are both inverted, since the packet is to be directed back to us). The same thing goes for the source port and destination port of the connection.
+
+
+

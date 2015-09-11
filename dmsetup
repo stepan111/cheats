@@ -1,0 +1,5 @@
+# Device mapper table
+dmsetup table 
+
+# Remoove mapped device
+dmsetup remove /dev/mapper/<device>	

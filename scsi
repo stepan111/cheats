@@ -1,0 +1,5 @@
+# Disable disk
+echo 1 >/sys/block/sdX/device/delete
+
+# Find devices on hostX(find disk)
+echo "- - -" >/sys/class/scsi_host/hostX/scan 

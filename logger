@@ -1,0 +1,2 @@
+# Send message to syslog with facility daemon.warn
+logger -p daemon.warn "This is only a test."

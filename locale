@@ -1,0 +1,6 @@
+# Check availible locales
+locale -a
+
+# Edit language settings for bash
+vi /etc/profile.d/lang.sh
+ 

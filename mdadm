@@ -1,0 +1,30 @@
+# List info about RAID
+mdadm --detail /dev/mdXX
+
+# List info on disk (you should run this commands before doing something)
+mdadm --examine /dev/sd[abc][12345]
+
+# CLear superblock of RAID array
+mdadm --zero-superblock /dev/sdXX
+
+# Stop array
+mdadm --stop /dev/mdX
+
+# Start array (even in degraded mode)
+mdadm --run
+
+# Add device to array
+mdadm --manage /dev/md0 --add /dev/sdb1
+
+# Mark device as failed and replace from array
+mdadm --manage /dev/md1 --fail /dev/sdb2
+mdadm --manage /dev/md1 --remove /dev/sdb2
+
+
+# Update prefered minor (name of array)
+# 0.90
+mdadm --stop /dev/md127
+mdadm --assemble --update=super-minor /dev/md1 /dev/sdb8 /dev/sda8 
+# 1.X
+mdadm --stop /dev/md127
+mdadm --assemble --name=2 /dev/md1 /dev/sdb8 /dev/sda8 

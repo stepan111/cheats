@@ -1,0 +1,2 @@
+#Display all routes in AS
+/usr/bin/whois -H -h whois.ripe.net -T route -i origin AS20839

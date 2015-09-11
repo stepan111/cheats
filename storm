@@ -1,0 +1,52 @@
+# Cisco cpu utilisation command
+show process cpu
+sho pro cp | in CPU
+
+#Cisco storm control
+show storm-control 
+show storm-control broadcast
+show storm-control multicast
+
+
+#Extreme flood 
+show ports rate-limit flood
+
+#extreme cpu
+show cpu-monitoring | include System
+
+
+# Cisco script for collecting data
+#!/opt/local/bin/bash
+
+     ########################################### 
+     # Router's IP address 
+     # 
+     IP_ADDRESS='10.200.40.53' 
+       
+
+     # Directory where the log files will be stored 
+     # 
+     DIR=/var/log/router 
+
+     ######################################## 
+
+     if [ ! -e $DIR ] 
+     then 
+       mkdir $DIR 
+     fi 
+
+     # Tag specification: mmddhhmm 
+     DATE=`date +'%m%d'` 
+     TIME=`date +'%H%M'` 
+     TAG=$DATE$TIME 
+
+     # Collect data from the router 
+     (echo "foo";\ 
+     echo "bar";\ 
+     echo "term len 0";\ 
+     echo "show version";\ 
+     echo "show processes cpu";\ 
+     echo "term len 15";\ 
+     echo "show memory summary";\ 
+     echo "q";\ 
+     sleep 30)|telnet $IP_ADDRESS > $DIR/info.$TAG 2>$DIR/info.$TAG.msg 

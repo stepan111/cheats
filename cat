@@ -1,0 +1,10 @@
+#List file with numbered lines
+cat -n file.txt
+
+#Blacklisting method 
+cat $ALL_LIST $BLACKLIST | sort | uniq -u
+
+#Write DATA in file.txt
+cat file.txt << EOF
+data
+EOF

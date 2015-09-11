@@ -1,0 +1,5 @@
+# Run  thttpd as user root at port 8080 on /var/ directory
+thttpd -g -d /var -u root -p 8080
+
+# Another useful example
+/usr/sbin/thttpd -g -d /home/birukov/docs -u birukov -p 80

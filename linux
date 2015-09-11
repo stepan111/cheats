@@ -1,0 +1,9 @@
+#Compile a kernel
+ make INSTALL_MOD_PATH=$HOME/$kversion modules_install
+ make INSTALL_PATH=$HOME/$kversion install
+ make ARCH=i386 -j5 all
+
+#Policy routing
+CONFIG_IP_MULTIPLE_TABLES
+CONFIG_IP_ADVANCED_ROUTER
+(Networking support -> Networking options -> TCP/IP networking)

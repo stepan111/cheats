@@ -1,0 +1,5 @@
+# Display enabled filters on device
+tc -s -d -p filter show dev imq3
+
+#Display class information on device 
+tc -s -d -p class show dev imq3

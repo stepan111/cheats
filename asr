@@ -1,0 +1,2 @@
+# PPPoE block on asr
+show pppoe throttled mac

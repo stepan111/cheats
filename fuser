@@ -1,0 +1,6 @@
+#List processes that using current directory
+fuser -mv .
+
+#Forced unmounting 
+fuser -km /mnt/hda2
+

@@ -1,0 +1,2 @@
+#Search UUID of connected disks 
+blkid -c /dev/null

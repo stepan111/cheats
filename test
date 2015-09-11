@@ -1,0 +1,18 @@
+# Explaining test function args 
+eq          INTEGER1 -eq INTEGER2         INTEGER1 эквивалентно INTEGER2 
+ge          INTEGER1 -ge INTEGER2         INTEGER1 больше или эквивалентно INTEGER2 
+gt          INTEGER1 -gt INTEGER2         INTEGER1 больше INTEGER2 
+le          INTEGER1 -le INTEGER2         INTEGER1 меньше или эквивалентно INTEGER2 
+lt          INTEGER1 -lt INTEGER2         INTEGER1 меньше INTEGER2 
+ne          INTEGER1 -ne INTEGER2         INTEGER1 не эквивалентно INTEGER2 
+-z          -z STRING                           Правда если длинна STRING равна 0
+-n          -n STRING                           Правда если длинна STRING не 0
+==          STRING1 == STRING2                  Правда если STRING1 идентично STRING2
+!=          STRING1 != STRING2                  Правда если STRING1 не идентично STRING2
+<     STRING1 < STRING2             Правда если STRING1 лексически отсортировано перед STRING2
+>     STRING1 > STRING2             Правда если STRING1 лексически отсортировано после STRING2
+
+i=$(($i + 1))
+variable1=`<file1`      # Записать в переменную  "variable1" содержимое файла "file1".
+variable2=`cat file2`   # Записать в переменную "variable2" содержимое файла "file2".
+

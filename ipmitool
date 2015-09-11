@@ -1,0 +1,11 @@
+# Connect to host
+ipmitool -U UserName -I lanplus -H HostAddress -E shell
+
+# Show system event log
+ipmitool -U UserName -I lanplus -H HostAddress -E sel
+
+# Show Serial Over Lan configuration (Bit rate etc.)
+ipmitool -U UserName -I lanplus -H HostAddress -E sol info
+
+# Connect to SOL interface
+ipmitool -U UserName -I lanplus -H HostAddress -E sol activate

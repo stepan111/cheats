@@ -1,0 +1,53 @@
+# Common information about BIND DNS                                                                                          
+
+An 'RRset is short for Resource Record Set, which is all the records of a given type for a given domain. EG, a complete RRset for www.dnssec-tools.org for the A set of data would contain all of the A (IPv4) records for www.dnssec-tools.org
+   
+    CODE   Response code - this four bit field is undefined in requests
+           and set in responses.  The values and meanings of this field
+           within responses are as follows:
+
+              Mneumonic   Value   Description
+              ------------------------------------------------------------
+              NOERROR     0       No error condition.
+              FORMERR     1       The name server was unable to interpret
+                                  the request due to a format error.
+              SERVFAIL    2       The name server encountered an internal
+                                  failure while processing this request,
+                                  for example an operating system error
+                                  or a forwarding timeout.
+              NXDOMAIN    3       Some name that ought to exist,
+                                  does not exist.
+              NOTIMP      4       The name server does not support
+                                  the specified Opcode.
+              REFUSED     5       The name server refuses to perform the
+                                  specified operation for policy or
+                                  security reasons.
+              YXDOMAIN    6       Some name that ought not to exist,
+                                  does exist.
+              YXRRSET     7       Some RRset that ought not to exist,
+                                  does exist.
+              NXRRSET     8       Some RRset that ought to exist,
+                                  does not exist.
+
+              NOTAUTH     9       The server is not authoritative for
+                                  the zone named in the Zone Section.
+              NOTZONE     10      A name used in the Prerequisite or
+                                  Update Section is not within the
+                                  zone denoted by the Zone Section.
+
+# DNS in VEGA
+
+Kiev - Optima 213.227.192.130 195.248.191.72
+Kiev - Farlep 213.130.24.4    213.130.24.8
+Kiev - IP-Telecom  212.9.224.1 212.9.224.2
+Kiev - Intercom  83.218.227.65   83.218.227.129
+
+Odessa:
+213.130.0.1, 213.130.4.1
+
+NK:
+213.130.12.2; 213.130.4.1
+
+KH:
+PPPoE #213.227.254.66; 213.130.4.1;213.227.254.254
+DHCP 195.248.191.67; 195.248.191.72

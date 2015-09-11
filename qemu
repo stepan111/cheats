@@ -1,0 +1,11 @@
+# Run VM  with spice and preseeded date 
+qemu-system-x86_64 -m 2048 -name test \
+-enable-kvm\
+-usbdevice tablet \
+-net nic,model=virtio -net tap \
+-drive file=/var/www/files/storage/windows/win.img,if=virtio \
+-vga qxl -spice port=5905,addr=10.60.1.13,disable-ticketing \
+-device virtio-serial-pci -device virtserialport,chardev=spicechannel0,name=com.redhat.spice.0 \
+-chardev spicevmc,id=spicechannel0,name=vdagent \
+-rtc base=2014-07-16T00:00:00 \
+-snapshot

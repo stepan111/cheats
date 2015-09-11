@@ -1,0 +1,2 @@
+# List of linked libraru to binary
+ldd /path/to/binary_file

@@ -1,0 +1,5 @@
+# List logins for 1 day
+last | grep "`date -d '1 days ago' +%b' '%e`\|still"
+
+# List bad trys to login
+lastb 
