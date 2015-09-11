@@ -1,0 +1,15 @@
+#  Ignoring some files match regexp "__*"
+__*
+
+
+# Ignoring file in all directories
+file.name
+
+# Igonring just in root of project
+/config.php
+
+# Ignoring files in directory (without subdirectories)
+/images/*
+
+# Ignoring files with subdirectories
+images/*
