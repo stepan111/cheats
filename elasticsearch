@@ -1,0 +1,20 @@
+# Describe API instructions for elasticsearch
+
+# The delete index API allows to delete an existing index
+ curl -XDELETE 'http://localhost:9200/twitter/'
+
+
+
+# List indexes
+ curl 'localhost:9200/_cat/indices?v'
+
+# The get index API allows to retrieve information about one or more indexes.
+ curl -XGET 'http://localhost:9200/twitter/'
+
+# Statistics . https://www.elastic.co/guide/en/elasticsearch/reference/current/indices-stats.html
+  curl localhost:9200/logstash-2015.11.17/_stats/indexing  | python -mjson.tool 
+  curl localhost:9200/logstash-2015.11.17/_stats  | python -mjson.tool 
+  curl localhost:9200/_stats  | python -mjson.tool 
+
+
+# More info at https://www.elastic.co/guide/en/elasticsearch/reference/1.4/indices.html

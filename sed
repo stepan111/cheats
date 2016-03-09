@@ -15,3 +15,6 @@ sed '/^$/d' file.txt
 
 # To replace newlines in multiple lines
 sed ':a;N;$!ba;s/\n//g'  file.txt
+
+# From pattern to end of file
+sed -n '/<VirtualHost/,/EOF/p' httpd.conf

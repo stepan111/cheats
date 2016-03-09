@@ -1,0 +1,11 @@
+# description of aem api
+
+
+#Upload a package AND install
+ curl -u admin:admin -F file=@"name of zip file" -F name="name of package"  -F force=true -F install=true http://localhost:4505/crx/packmgr/service.jsp
+
+
+#Download (the package)
+ curl -u admin:admin http://localhost:4505/etc/packages/export/name_of_package.zip > name of local package file
+
+

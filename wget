@@ -33,3 +33,5 @@ wget -S --spider -O - http://google.com
 
 # Change the User-Agent to 'User-Agent: toto'
 wget -U 'toto' http://google.com
+
+wget -np -r -l 3 -nH --cut-dirs=2 -A rpm,log https://www.softwarecollections.org/repos/remi/php56more/epel-6-x86_64/
