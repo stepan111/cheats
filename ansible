@@ -3,3 +3,6 @@ ansible all -i inventory.tmp  -m ping -k
 
 # Run command on remote nodes
 ansible all -i inventory.tmp -kb --ask-become-pass   -m command -a "ls /etc/httpd/conf/"
+
+# List all vars per host
+ansible sjc01-c01-gws31 -i production -m debug -a "var=hostvars['sjc01-c01-gws31']"

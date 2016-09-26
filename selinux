@@ -1,0 +1,42 @@
+
+# Manipulate context
+chcon
+setfiles
+restorecon
+
+
+# Check SELinux status
+getenforce
+sestatus
+
+# Set system to be relabled on boot 
+touch /.autorelabel
+
+# Get AVC message
+ausearch –i –m AVC,USER_AVC –sv no
+
+
+# get list of sebooleans
+getsebool -a 
+semanage boolean -l
+
+
+# set some boolean 
+setsebool -P httpd_enable_homedirs on 
+
+
+# generate policy from audit.log
+ausearch –i –m AVC –sv no –ts recent | audit2allow
+ausearch –i –m AVC –sv no –ts recent | grep prelude-manager | audit2allow
+
+# Generate module
+ausearch -i -m AVC -sv no –ts recent –se nrpe_t | audit2allow –m drwho-nrpe > drwho-nrpe.te
+checkmodule -M -m –o drwho-nrpe.mod drwho-nrpe.te
+semodule_package –o drwho-nrpe.pp –m drwho-nrpe.mod
+semodule –install drwho-nrpe.pp
+
+# Permissive domain
+semanage permissive –l
+
+# Find processes with init_t context
+ps -eZ | egrep "initrc" | egrep -vw "tr|ps|egrep|bash|awk" | tr ':' ' ' | awk ‘{ print $NF }’

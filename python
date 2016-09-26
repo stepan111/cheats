@@ -14,3 +14,9 @@ python -m smtpd -n -c DebuggingServer localhost:1025
 
 # Pretty print a json
 python -mjson.tool
+
+# Apply regular expression to lines from stdin
+ps ax  |  python -c 'import re, sys; [ sys.stdout.write(re.match("^\s*(\d*).*$",line).group(1)+"\n")  for line in sys.stdin.read().split("\n") if re.match("^.*[d]hclient wlan0.*$",line) ]; '
+
+# Parese print json filed with python
+python -c "import json, sys; print json.load(sys.stdin)[0][u'messages']"
