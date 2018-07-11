@@ -1,0 +1,8 @@
+#List apps
+wmctrl -l
+
+# Move Thunderbird to screen 4
+wmctrl -r Thunderbird -t3
+
+# Set Thunderbird to fullscreen mode
+wmctrl -r Thunderbird -b toggle,fullscreen

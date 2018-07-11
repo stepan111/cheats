@@ -16,3 +16,9 @@ systemctl <start | stop> foo.service
 # Unit file locations
 /etc/systemd/system
 /usr/lib/systemd/system
+
+# clear out failed units
+systemctl reset-failed
+
+#init.d compability is added with /lib/systemd/system-generators/systemd-sysv-generator
+# it generates service files for init.d scripts and store them at /run/systemd/generator.late/

@@ -24,3 +24,13 @@ c, continue
 
 # exit gdb (after program terminated)
 q, quit
+
+
+# Read history from specified bash process. 
+gdb -batch \
+        --eval "set sysroot /" \
+        --eval "attach $PID" \
+        --eval "call write_history(\"/tmp/bash_history-$PID.txt\")" \
+        --eval 'detach' \
+        --eval 'q'
+

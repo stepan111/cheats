@@ -1,0 +1,4 @@
+https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/
+
+
+KUBECONFIG=./kube kubectl config view

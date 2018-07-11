@@ -29,3 +29,6 @@ rpm -K <package>
 
 # Verify a package
 rpm -V <package>
+
+# RPM hooks - https://www.ibm.com/developerworks/library/l-rpm2/
+#  Signing RPMs - https://www.ibm.com/developerworks/library/l-rpm3/

@@ -22,3 +22,7 @@ strace -c <command>
 
 # trace a running process (multiple PIDs can be specified)
 strace -p <pid>
+
+
+# starce DB communication for php process
+strace -e sendto,recvfrom -s 255 -p 14484

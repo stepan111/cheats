@@ -61,3 +61,11 @@ tcpdump -X
 # - not dst host 8.8.8.8
 # - src net 67.207.148.0 mask 255.255.255.0
 # - src net 67.207.148.0/24
+#
+
+[root@vi-sdz-tflex1 ~]# iptables -A OUTPUT -m owner --uid-owner mnadmin -j CONNMARK --set-mark 1
+[root@vi-sdz-tflex1 ~]# iptables -A INPUT -m connmark --mark 1 -j NFLOG --nflog-group 30
+[root@vi-sdz-tflex1 ~]# iptables -A OUTPUT -m connmark --mark 1 -j NFLOG --nflog-group 30
+[root@vi-sdz-tflex1 ~]# tcpdump -i nflog:30
+tcpdump: packet printing is not supported for link type NFLOG: use -w
+[root@vi-sdz-tflex1 ~]# tcpdump -i nflog:30 -w mnadmin.pcap

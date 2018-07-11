@@ -3,8 +3,6 @@
 # The delete index API allows to delete an existing index
  curl -XDELETE 'http://localhost:9200/twitter/'
 
-
-
 # List indexes
  curl 'localhost:9200/_cat/indices?v'
 
@@ -16,5 +14,60 @@
   curl localhost:9200/logstash-2015.11.17/_stats  | python -mjson.tool 
   curl localhost:9200/_stats  | python -mjson.tool 
 
+# View mapping for all index fields
+ curl -s '192.168.66.24:9200/sjc06-logs-gws-2016.10.05/_mapping/field/*' 
+
+# Create an index
+curl -XPUT 172.17.0.2:9200/test_index -d \
+'{ "settings" : { "index" : { "number_of_shards" : 3, "number_of_replicas" : 2 } } }'
+
+# Get cluster status
+curl -XGET 172.17.0.2:9200/_cluster/state?pretty | less
+
+# Get cluster settings
+curl -XGET 172.17.0.2:9200/_cluster/settings?pretty
 
 # More info at https://www.elastic.co/guide/en/elasticsearch/reference/1.4/indices.html
+
+
+# Install HEAD pluggin
+bin/plugin install mobz/elasticsearch-head
+access url - http://172.17.0.3:9200/_plugin/head/
+
+
+# Move shards
+curl -XPOST 'localhost:9200/_cluster/reroute?pretty' -H 'Content-Type: application/json' -d'
+{
+    "commands" : [
+        {
+            "move" : {
+                "index" : "test", "shard" : 0,
+                "from_node" : "node1", "to_node" : "node2"
+            }
+        },
+        {
+          "allocate_replica" : {
+                "index" : "test", "shard" : 1,
+                "node" : "node3"
+          }
+        }
+    ]
+}
+'
+
+# Add data to index 
+ curl -XPUT 172.17.0.4:9200/test_index2/test/2 -d@- <<!
+{
+    "first_name" : "John",
+    "last_name" :  "Smith",
+    "age" :        25,
+    "about" :      "I love to go rock climbing",
+    "interests": [ "sports", "music" ]
+}
+!
+
+# Configurations
+node.name: some_name
+node.master: true/false
+node.data: true/false
+discovery.zen.ping.unicast.hosts: ["list", "of","other","nodes"]

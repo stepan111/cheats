@@ -34,3 +34,6 @@ systemctl isolate foo.target
 
 # Change default target
 systemctl enable foo.target
+
+# You can manually clear out failed units. This can be done for all units, or a single one
+systemctl reset-failed

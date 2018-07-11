@@ -9,3 +9,6 @@ seq 9 | sed 'H;g' | awk -v RS='' '{for(i=1;i<=NF;i++)printf("%dx%d=%d%s", i, NR,
 
 # Specify output separator character
 printf '1 2 3' | awk 'BEGIN {OFS=":"}; {print $1,$2,$3}'
+
+# parse environ
+awk -v 'RS=\0' '{print}' /proc/20232/environ

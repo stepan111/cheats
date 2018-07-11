@@ -1,3 +1,6 @@
+# Remove pass from RSA key
+openssl rsa -passin env:SSH_PASS -in ${SSH_KEY} -out ${WORKSPACE}/id_rsa
+
 # To create a 2048-bit private key:
 openssl genrsa -out server.key 2048
 
@@ -8,12 +11,6 @@ openssl req -new -key server.key -out server.csr
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 
 # (The above commands may be run in sequence to generate a self-signed SSL certificate.)
-
-# To show certificate information for a certificate signing request
-openssl req -text -noout -in server.csr
-
-# To show certificate information for generated certificate
-openssl x509 -text -noout -in server.crt 
 
 # To view certificate expiration:
 echo | openssl s_client -connect <hostname>:443 2> /dev/null | \
@@ -28,3 +25,34 @@ openssl s_client -showcerts -servername meetings.btcloudphone.bt.com -connect me
 
 # View cert chain
 openssl s_client -showcerts -connect google.com:443
+
+# View x509 certificate
+openssl x509 -text -noout -in /etc/pki/CA/configengine.modeln.com.ca.crt
+
+# Convert PKCS7 to PEM
+openssl pkcs7 -print_certs -in old.p7b -out new.crt
+
+# Add password to key
+openssl rsa -des3 -in your.key -out your.encrypted.key
+
+# Cert description
+This DN includes information about the country (C), state (ST), locality (L), organization (O), and organizational unit (OU). The CN also includes an email address field.
+Subject: C=US, ST=Maryland, L=Pasadena, O=Brent Baccala,
+         OU=FreeSoft, CN=www.freesoft.org/emailAddress=baccala@freesoft.org
+
+# Verify verifu that cert matches to key and csr  - output MUST be the same
+ openssl req -noout -modulus -in client.csr
+ openssl rsa -noout -modulus -in client.key
+ openssl x509 -noout -modulus -in client.pem
+
+# To show certificate information for a certificate signing request
+openssl req -text -noout -in server.csr
+
+# To show certificate information for generated certificate
+openssl x509 -text -noout -in server.crt 
+
+# Verify 
+openssl verify -CAfile subCAstage.crt client.pem
+
+# verify dates
+openssl s_client -connect $(hostname):443 | openssl x509 -noout -dates

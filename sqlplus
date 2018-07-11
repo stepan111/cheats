@@ -1,0 +1,24 @@
+# Example connect string
+grep myprop.db /opt/mn/ext/props/local_ops.properties
+export ORACLE_HOME=/opt/db/oracle/11.2.0.1_32bit 
+cd $ORACLE_HOME
+./bin/sqlplus   UserName@TNS
+
+# Run script
+>    @script.sql
+
+# Example
+set linesize 120
+column password format A30 
+column lastupduserinfo format A15 
+column userid format 9999999999
+
+select * from FLEX07_IP2.TECMF_USERPASSWORD;
+
+
+# Check that service started
+sudo -u oracle -i
+lsnrctl service
+
+
+(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=c)(PORT=a))(CONNECT_DATA=(SID=b)))

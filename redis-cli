@@ -1,0 +1,11 @@
+# List connected client
+CLIENT LIST
+
+# List all  keys
+KEYS *
+
+# Use specific database
+SELECT <NUMBER>
+
+# Getall value of key
+HGETALL <KEY>

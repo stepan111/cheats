@@ -1,0 +1,41 @@
+# Here are list of some more advanced metrics that may be used in troubleshouting system performance
+
+# Instructions per cycle - describes how much your software optimized for CPU. 
+# Higher value expected. For better performance we may recompile program with better optimization. Also scheduling params and nice may help.
+# Also this may say that your program do lots of memory or I/O and CPU is idle
+perf stat -- sleep 1
+ * * *
+        593,659      instructions              #    0.66  insns per cycle
+ * * *
+# Page faults - indicate MMU misses. Should be lower. This happens when requested address is not exist in TLB. 
+# this mean that there always will be a pagefoult when you requesting new resource or resource is not mapped in phisical memory.
+# Linux linux may unload outdated resources from phisical memory. What may help to reduce this value: swappiness
+perf stat -a -- sleep 10
+* * *
+             1,501      page-faults               #    0.038 K/sec                  
+* * * 
+
+# Swap I\O. swap-in si and swap-out so operations.
+# this will show that your app is activly swapping
+vmstat 1
+
+# Scheduling 
+perf stat -e 'sched:*' -p PID
+
+
+# Branch instructions are used to implement control flow in program loops and conditionals
+# Branch misses - misspredict of branch predictor. This may be optimized in code.
+perf stat
+
+
+# CPU Cache misses. may be optimized in code
+perf stat -e 'cache-misses' -- sleep 5
+
+# most executed syscalls
+perf stat -e 'syscalls:sys_enter_*' -o /dev/stdout -a sleep 5 | awk '$1' | sort -n
+
+
+Usefull links:
+
+http://www.brendangregg.com/blog/2014-07-03/perf-counting.html
+http://www.brendangregg.com/perf.html

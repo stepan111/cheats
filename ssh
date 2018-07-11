@@ -32,3 +32,11 @@ ssh user@example.com -C -c blowfish -X
 # Copy files and folders through ssh from remote host to pwd with tar.gz compression
 # when there is no rsync command available
 ssh user@example.com "cd /var/www/Shared/; tar zcf - asset1 asset2" | tar zxf -
+
+# Auto login with port knocking
+Host myserver
+   User myuser
+   Host myserver.com
+   ProxyCommand bash -c '/usr/bin/knock %h 1000 2000 3000 4000; sleep 1; exec /bin/nc %h %p'
+
+# SSH VPN - https://help.ubuntu.com/community/SSH_VPN

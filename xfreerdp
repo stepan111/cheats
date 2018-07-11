@@ -1,2 +1,5 @@
 # Connect to remote rdp server
 xfreerdp -g 1200x1000 -u ftrans 192.168.2.12
+
+# Enable clipboard
+xfreerdp +clipboard /size:1200x1000 /u:sbirukov /v:vi-sky-pjbx2.aws.modeln.com

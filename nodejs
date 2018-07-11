@@ -1,0 +1,11 @@
+#V.0.12.X download rpms
+https://rpm.nodesource.com/pub_0.12/el/7/x86_64/
+
+
+V.4.X
+https://rpm.nodesource.com/pub_4.x/el/7/x86_64/
+
+
+# Hack to install all dependencies
+yum install nodejs-4.2.6-1nodesource.el7.centos.x86_64.rpm
+

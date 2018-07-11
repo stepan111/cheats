@@ -1,0 +1,52 @@
+Blender cheat sheet:
+
+a - unselect all
+
+Alt + Right mouse - Rotate view
+
+z - change viewport
+
+b - box select
+
+g - transforming (перемещение)
+gy - перемещение по y
+
+rx - Rotate by X
+
+s - scale object
+sx - scale object by X
+
+Alt -r - revert rotation
+
+Alt-s - revert scale
+
+alt -g - back to normal position
+
+x - delete
+
+shift - a - add an primitive object
+
+h - hide a mesh(object)
+alt -h - unhide
+
+
+m - move to other layer
+
+tab - edit mesh object (можно выбрать определенную точку)
+
+ctrl -tab - select mesh selection mode
+
+shift - B + LMB - zoom on specific area
+
+Ctrl - r split . Scroll up to split on multiple parts. CREATE Edge-loop
+g - slide edge loop
+
+shift -d - duplicate object
+
+x - delete face
+
+f - fill
+
+shift -f fly camera
+
+F3 - save render result

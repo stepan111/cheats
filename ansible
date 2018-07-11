@@ -6,3 +6,68 @@ ansible all -i inventory.tmp -kb --ask-become-pass   -m command -a "ls /etc/http
 
 # List all vars per host
 ansible sjc01-c01-gws31 -i production -m debug -a "var=hostvars['sjc01-c01-gws31']"
+
+
+# get list of packages from one server
+function get_packages () { ansible $1 -i $2 -m command -a "rpm -qa" | grep -v $1 | sort > ~/tmp/rpm_check/$1  ;  } 
+
+# Change callback
+export ANSIBLE_LOAD_CALLBACK_PLUGINS=1
+ANSIBLE_STDOUT_CALLBACK=minimal /usr/bin/ansible-playbook ${WORKSPACE}/Ansible/Revitas/install.yml --tags "${Tags}"
+timer - callback that show only execution time of playbook
+
+# We can use python inside ansible
+- name: run some command
+   command: echo item {{item}}
+   register: my_result
+   with_items:
+     - 1
+     - 2
+     - 3
+  - name: my debug
+    debug:
+      msg: "{% set output = [] %}\
+        {% for x in (my_result.results | map(attribute='stdout')) %}\
+          {{ output.append( 'The result was: ' ~ x ) }}\
+        {% endfor %}\
+        {{output}}"
+Output is something like: -
+
+ok: [host1]: => {
+    "msg": [
+        "the result was: item 1",
+        "the result was: item 2",
+        "the result was: item 3"
+    ]
+}
+ok: [host2]: => {
+    "msg": [
+        "the result was: item 1",
+        "the result was: item 2",
+        "the result was: item 3"
+    ]
+}
+
+# if you need to show dict it is better to transform it to nice json
+- fail:
+    msg: "Cannot determine LS url properly. \n {{ lsExternalName_out | to_nice_json }}"
+  when: lsExternalName_out.stdout_lines | length != 1
+
+
+# Run task one by one for each host. play_hosts - list of hosts
+- name: run {{ keycloak_service }} service
+  service: name="{{ keycloak_service }}" enabled=yes state=started
+  delegate_to: "{{ item }}"
+  with_items: "{{ play_hosts }}"
+  run_once: True
+
+
+# Variable for all hosts in group
+        - name: Set hugememory value
+          set_fact:
+            rac_hugememory: "{{ hugememory.stdout }}"
+
+    - set_fact: rac_hugememories="{{ rac_hugememories | default([]) + [ hostvars[item]['rac_hugememory'] | int ] }}"
+      with_items: "{{ groups['ec2Oracle'] }}"
+
+    - debug: msg="mem={{ rac_hugememories }}"

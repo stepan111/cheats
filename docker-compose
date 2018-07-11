@@ -1,0 +1,3 @@
+
+# Run project in background(detached)
+docker-compose up -d  

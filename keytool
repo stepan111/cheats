@@ -1,0 +1,12 @@
+# List certificates in keystore
+/opt/java/latest/bin/keytool  -list  -keystore /opt/flex/app/ECMFoundation/ECMServer/standalone/configuration/chap8.keystore
+
+# generate self signed certificate
+keytool -genkey -alias server -keyalg RSA -keystore server.keystore -storepass change_it -validity 365
+
+# export cert 
+/opt/java/latest/bin/keytool -exportcert  -keystore /opt/flex/app/ECMFoundation/ECMServer/standalone/configuration/chap8.keystore -file chapter8.crt -alias chapter8
+
+
+#import cert 
+/opt/java/latest/bin/keytool  -import -file idp-test.crt  -keystore /opt/flex/app/ECMFoundation/ECMServer/standalone/configuration/chap8.keystore -alias servercert

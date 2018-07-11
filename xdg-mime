@@ -1,0 +1,4 @@
+xdg-mime query filetype Documents/Stuff/Stuff.pdf
+
+# Set filetype which will be used
+xdg-mime default evince.desktop application/pdf

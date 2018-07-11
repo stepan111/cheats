@@ -1,0 +1,5 @@
+# describe instances
+ec2 describe-instances --filters  --query 'Reservations[].Instances[][Placement.AvailabilityZone, State.Name, Tags[?Key==`Name`].Value ]'
+
+--query 'Reservations[].Instances[][Placement.AvailabilityZone, SubnetId, State.Name, InstanceId, NetworkInterfaces[?Status ==`in-use`].[PrivateIpAddresses[?Primary==`true`].PrivateIpAddress], Tags[?Key==`Name`].Value]
+

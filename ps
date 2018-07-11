@@ -13,3 +13,10 @@ ps -eo pid,user,command
 # Exclude grep from your grepped output of ps.
 # Add [] to the first letter. Ex: sshd -> [s]shd
 ps aux | grep '[h]ttpd'
+
+# get counters per process send time on Userspace/System/ChildUserWait/ChildSysWait
+ps ax | grep cron.[p]hp  | awk '{print $1}' | xargs -n 1 -i {} awk '{print $14 " " $15 " "$17 " "$17}' /proc/{}/stat
+
+# launch time
+ps -eo pid,lstart,cmd
+

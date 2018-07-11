@@ -104,3 +104,15 @@ git clone --depth 1 <remote-url>
 
 # To unshallow a clone
 git pull --unshallow
+
+# Simple new feature workflow
+# Create new branch
+git branch  revitas-dev
+git checkout revitas-dev
+# Commit something
+git push  origin revitas-dev
+# Merge to master from origin side (e.g. Github merge)
+# Remove anything
+git push -d origin revitas-dev
+git checkout master
+git branch -d revitas-dev

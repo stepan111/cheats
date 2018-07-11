@@ -12,3 +12,9 @@ rsync -auv /src/foo /dest
 
 # Explicitly copy /src/foo to /dest/foo
 rsync -auv /src/foo/ /dest/foo
+
+# Diff two dirs
+rsync -crvn httpd_ansible2.3.1_26-06-2017/httpd/ /etc/httpd/
+
+# Update HaProxy
+rsync -crvn --exclude='build_HA.sh' --exclude='rsyslog.conf' --exclude='logrotate.conf' --exclude='sysctl.conf' cloudops-aws/haProxy/ /etc/haproxy/

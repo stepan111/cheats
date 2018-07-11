@@ -33,3 +33,18 @@ curl http://ifconfig.me/all/json
 
 # Limit the rate of a download
 curl --limit-rate 1000B -O http://path.to.the/file
+
+# AKAMAI Troubleshooting. Add pragma headers to request
+# http://stackoverflow.com/questions/8811741/whats-the-best-way-to-troubleshoot-akamai-headers-these-days
+curl -H "Pragma: akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-check-cacheable, akamai-x-get-cache-key, akamai-x-get-extracted-values, akamai-x-get-nonces, akamai-x-get-ssl-client-session-id, akamai-x-get-true-cache-key, akamai-x-serial-no" -IXGET http://uri/
+
+# Follow redirects
+curl -L google.com
+
+# Check with hostname without updating hosts
+curl -Iks -H "Host: flex-perf-test.cloud.modeln.com"  https://localhost/ecmlogin/
+
+curl http://localhost:7001/modeln/BusinessNetwork\?heartbeat\=true\!alive
+curl https:///localhost:7001j/wl/heartbeat
+
+

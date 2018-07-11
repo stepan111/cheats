@@ -1,0 +1,2 @@
+# custom magics definition
+.ipython/profile_default/startup/00-my.py

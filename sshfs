@@ -1,0 +1,2 @@
+# Sshfs to Cops balancer
+sshfs vi-sky-plb03:/usr/local/modeln-nginx/nginx/conf ~/tmp/NginxCOPS

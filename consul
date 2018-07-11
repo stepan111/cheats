@@ -1,0 +1,18 @@
+# Returns the current Raft leader
+curl http://127.0.0.1:8500/v1/status/leader?pretty
+
+
+# Returns the current Raft peer set
+curl http://127.0.0.1:8500/v1/status/peers?pretty
+
+# configuration and member information of the local agent under the Config key
+curl http://127.0.0.1:8500/v1/agent/self?pretty | less
+
+# local started services info
+curl http://127.0.0.1:8500/v1/agent/services?pretty | less
+
+# view all services in cluster
+ curl -s http://127.0.0.1:8500/v1/catalog/services?pretty
+
+# view special service
+curl -s http://127.0.0.1:8500/v1/catalog/service/<service>?pretty

@@ -1,0 +1,63 @@
+# Jboss management cli
+JAVA_HOME=/javapath /jbossPath/bin/jboss-cli.sh --connect
+
+
+
+# get system status
+/:read-attribute(name=server-state
+
+
+# Reload configuration
+/:reload
+
+# Restart
+/:shutdown(restart=true
+
+# Check version
+version
+
+
+# DataSource statistics
+/subsystem=datasources/data-source=EcmFoundationJdbcDS/statistics=pool:read-resource(include-runtime=true
+
+# Data source test
+/subsystem=datasources/data-source=GpNGJdbcDS:test-connection-in-pool
+
+
+# Configuring http connector
+/subsystem=web/connector=http:write-attribute(name=scheme,value=https) 
+/subsystem=web/connector=http:write-attribute(name=proxy-port,value=443)
+/subsystem=web/connector=http:write-attribute(name=secure,value=true)
+/subsystem=web/connector=http:write-attribute(name=redirect-port,value=8443)
+/:shutdown(restart=true)
+
+# in domain mode
+/profile=full-ha/subsystem=web/connector=http:write-attribute(name=proxy-port,value=443
+/profile=full-ha/subsystem=web/connector=http:write-attribute(name=scheme,value=https)
+/profile=full-ha/subsystem=web/connector=http:write-attribute(name=secure,value=true
+/profile=full-ha/subsystem=web/connector=http:write-attribute(name=redirect-port,value=8443
+
+#SAML security domain configuration
+/subsystem=security/security-domain=idp:add(cache-type=default)
+/subsystem=security/security-domain=idp/authentication=classic:add(login-modules=[{"code"=>"UsersRoles","flag"=>"required","module-options"=>[("usersProperties"=>"users.properties"),("rolesProperties"=>"roles.properties")]}]
+reload
+
+# Encrease deployment timeout
+/subsystem=deployment-scanner/scanner=default:write-attribute(name=deployment-timeout,value=1200)
+/system-property=jboss.as.management.blocking.timeout:add(value=600)
+
+
+# Enable access log jboss-eap-6.0
+/subsystem=web/virtual-server=default-host/access-log=configuration:add(pattern="%t %H cookie:%{JSESSIONID}c request:%{SESSIONID}r  %m %U %s %q %r",resolve-hosts=false)
+/subsystem=web/virtual-server=default-host/access-log=configuration:read-resource )
+tail -f  /opt/flex/app/ECMFoundation/ECMServer/standalone/log/default-host/access_log.2017-10-12
+
+# jboss7.0.0
+/subsystem=undertow/server=default-server/host=default-host/setting=access-log:add(pattern="%t %H cookie:%{JSESSIONID}c request:%{SESSIONID}r  %m %U %s %q %r"
+/subsystem=undertow/server=default-server/host=default-host/setting=access-log:read-resource   
+:shutdown(restart=true
+https://access.redhat.com/solutions/16101
+
+
+# Connect to LS 
+JAVA_HOME=/opt/java7/latest /opt/jboss/latest/bin/jboss-cli.sh --controller=127.0.0.1:9900 --connect

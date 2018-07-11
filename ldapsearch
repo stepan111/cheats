@@ -1,0 +1,1 @@
+ldapsearch -D "CN=Stepan V. Birukov,OU=Ukraine,OU=Users,OU=RingCentral,dc=rcoffice,dc=ringcentral,dc=com" -b "OU=Users,OU=RingCentral,DC=rcoffice,DC=ringcentral,DC=com" -LL -H ldaps://10.14.33.13  -W  "(sAMAccountName=stepan.birukov)"

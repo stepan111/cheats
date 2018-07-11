@@ -42,3 +42,6 @@ find . ! -iwholename '*.git*' -type f
 
 # Find all files that have the same node (hard link) as MY_FILE_HERE
 find . -type f -samefile MY_FILE_HERE 2>/dev/null
+
+# By modification time
+find .  -cmin -5

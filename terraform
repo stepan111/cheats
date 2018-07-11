@@ -1,0 +1,15 @@
+# init???
+terraform init
+
+# import state of existing resource
+terraform import aws_vpc.PROD vpc-b0aa7bc9
+
+# remove state for resorce
+terraform state rm aws_vpc.PROD
+
+# Check what will be changed
+terraform plan
+
+
+# Apply changes
+terraform apply

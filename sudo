@@ -1,0 +1,5 @@
+# Check user permissions
+sudo -l -U username
+
+# Switch to user
+sudo -i -u username

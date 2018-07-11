@@ -1,0 +1,11 @@
+# Enable output on DP2 monitor right of eDP1
+xrandr | grep "DP2 connected" && xrandr --output DP2 --right-of eDP1
+
+# mirror
+xrandr --output VGA --same-as LVDS
+
+# external monitor is off, internal on
+xrandr --output LVDS --auto --output VGA --off
+
+# left
+xrandr --output VGA --auto --left-of LVDS

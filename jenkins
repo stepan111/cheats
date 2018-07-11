@@ -1,0 +1,13 @@
+java -jar jenkins-cli.jar -s http://jenkins.aws/ help
+
+
+#Create job (Keys only in openssh format)
+java -jar jenkins-cli.jar -noCertificateCheck -s http://jenkins.awsi/ -i E:/temp/jenkins-cli/id_dsa -remoting create-job %jobName%< %jobName%.xml
+
+
+# Check job
+# curl -XGET 'http://sbirukov:api_token@jenkins.aws/checkJobName?value=nginx_install'
+<div class=error><img src='/static/b2d02142/images/none.gif' height=16 width=1>A job already exists with the name ‘nginx_install’</div>%
+
+# Create job
+curl -v -XPOST 'http://username:api_token@jenkins.aws/createItem?name=nginx_install' --data-binary @config.xml -H "Content-Type:text/xml"

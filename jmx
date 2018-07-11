@@ -1,0 +1,3 @@
+
+wget https://oss.sonatype.org/content/repositories/public/io/hawt/hawtio-app/2.0.2/hawtio-app-2.0.2.jar
+JAVA_HOME=/opt/java8/latest /opt/java8/latest/bin/java -jar hawtio-app-2.0.2.jar --port 8090
