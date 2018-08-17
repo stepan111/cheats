@@ -9,7 +9,7 @@ r = requests.post(zabbix_url,json=payload,headers=headers)
 r.json()
 
 # Get session token
-user_login = {"jsonrpc":"2.0","method":"user.login","params": {"user": "Admin","password": "zabbix"},"id": 1}
+user_login = {"jsonrpc":"2.0","method":"user.login","params": {"user": "ApiUser","password": "SecretPass"},"id": 1}
 r = requests.post(zabbix_url,json=user_login,headers=headers)
 r.ok
 r.json()

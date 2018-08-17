@@ -1,0 +1,9 @@
+
+yum install -y https://rpmfind.net/linux/dag/redhat/el7/en/x86_64/dag/RPMS/iperf-2.0.4-1.el7.rf.x86_64.rpm
+
+#Server
+iperf -s -u -B 226.94.1.1 -i 1
+
+
+#Client
+iperf -c 226.94.1.1 -u -T 32 -t 3 -i 1

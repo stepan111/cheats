@@ -71,3 +71,7 @@ ok: [host2]: => {
       with_items: "{{ groups['ec2Oracle'] }}"
 
     - debug: msg="mem={{ rac_hugememories }}"
+
+# Check for pattern
+- fail: msg="There is conflicts {{ outer_item.patchid }}"
+     when: 'oracle_conflict_patches.stdout is search("Prereq.+failed")'

@@ -39,3 +39,9 @@ G               go to end of file
 
 
 https://habrahabr.ru/post/68249/
+
+https://en.wikibooks.org/wiki/Learning_the_vi_Editor/Vim/Modes#Ex-mode
+$ ex '+set ff=unix' '+w' '+q' applyPatch.sh
+$ file applyPatch.sh
+applyPatch.sh: POSIX shell script, ASCII text executable
+

@@ -1,0 +1,5 @@
+# LS System info
+curl 'http://127.0.0.1:9010/jolokia/read/com.modeln:name=System'
+curl http://127.0.0.1:9010/jolokia/read/com.modeln:name=User_Sessions/Sessions
+curl http://127.0.0.1:9010/jolokia/read/com.modeln:name=System/Tasks
+#

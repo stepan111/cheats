@@ -1,0 +1,2 @@
+ldapsearch -D "cn=Manager,dc=example,dc=com" -W -b "dc=example,dc=com" -H ldap://localhost:389 '(uid=bob)'
+
