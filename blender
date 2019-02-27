@@ -29,7 +29,6 @@ shift - a - add an primitive object
 h - hide a mesh(object)
 alt -h - unhide
 
-
 m - move to other layer
 
 tab - edit mesh object (можно выбрать определенную точку)
@@ -45,7 +44,7 @@ shift -d - duplicate object
 
 x - delete face
 
-f - fill
+f - fill ( in edit mode select edges or vertices and press f - it will create face )
 
 shift -f fly camera
 

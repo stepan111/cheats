@@ -23,6 +23,9 @@ version
 # Data source test
 /subsystem=datasources/data-source=GpNGJdbcDS:test-connection-in-pool
 
+# Add new http port
+/socket-binding-group=standard-sockets/socket-binding=http-sqin/:add(port=3000)
+ /subsystem=web/connector=http-sqin/:add(socket-binding=http-sqin,protocol="HTTP/1.1",scheme="http")
 
 # Configuring http connector
 /subsystem=web/connector=http:write-attribute(name=scheme,value=https) 
@@ -47,6 +50,11 @@ reload
 /system-property=jboss.as.management.blocking.timeout:add(value=600)
 
 
+# Spy loggon to console 
+/subsystem=logging/logger=jboss.jdbc.spy:add(level=TRACE)
+/subsystem=logging/console-handler=CONSOLE:write-attribute(name=level, value=TRACE)
+/subsystem=datasources/data-source=modelnDefaultOraDataSource:write-attribute(name=spy,value=true
+
 # Enable access log jboss-eap-6.0
 /subsystem=web/virtual-server=default-host/access-log=configuration:add(pattern="%t %H cookie:%{JSESSIONID}c request:%{SESSIONID}r  %m %U %s %q %r",resolve-hosts=false)
 /subsystem=web/virtual-server=default-host/access-log=configuration:read-resource )
@@ -61,3 +69,21 @@ https://access.redhat.com/solutions/16101
 
 # Connect to LS 
 JAVA_HOME=/opt/java7/latest /opt/jboss/latest/bin/jboss-cli.sh --controller=127.0.0.1:9900 --connect
+
+
+
+# LS HA datasource confgiration COPSPR-1908 ECMF-62074 
+/subsystem=datasources/data-source=mnmnaOraDataSource:write-attribute(name=validate-on-match, value=true
+/subsystem=datasources/data-source=mnmnaOraDataSource:write-attribute(name=check-valid-connection-sql,value="select 1 from dual"
+/subsystem=datasources/data-source=mnmnaOraDataSource:write-attribute(name=stale-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker
+/subsystem=datasources/data-source=mnmnaOraDataSource:write-attribute(name=valid-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker
+/subsystem=datasources/data-source=mnmnaOraDataSource:read-resource
+/subsystem=datasources/data-source=modelnDefaultOraDataSource:write-attribute(name=validate-on-match, value=true
+/subsystem=datasources/data-source=modelnDefaultOraDataSource:write-attribute(name=check-valid-connection-sql,value="select 1 from dual"
+/subsystem=datasources/data-source=modelnDefaultOraDataSource:write-attribute(name=stale-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker
+/subsystem=datasources/data-source=modelnDefaultOraDataSource:write-attribute(name=valid-connection-checker-class-name,value=org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker
+:shutdown(restart=true
+
+
+#Jboss 5 /opt/revitas/flex76/ECMFoundation/ECMServer/deploy/jbossweb.sar/server.xml
+<connector name="ajp" protocol="AJP/1.3" scheme="https" socket-binding="ajp" enabled="true" proxy-port="443" secure="true"/>

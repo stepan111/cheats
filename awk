@@ -12,3 +12,8 @@ printf '1 2 3' | awk 'BEGIN {OFS=":"}; {print $1,$2,$3}'
 
 # parse environ
 awk -v 'RS=\0' '{print}' /proc/20232/environ
+
+
+# last 2 columns 
+awk -F, '{print $(NF-1) $NF}'
+

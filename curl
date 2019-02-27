@@ -52,4 +52,18 @@ curl -Iks -H "Host: flex-perf-test.cloud.modeln.com"  https://localhost/ecmlogin
 curl http://localhost:7001/modeln/BusinessNetwork\?heartbeat\=true\!alive
 curl https:///localhost:7001j/wl/heartbeat
 
+Flex:
+For Summer17 URI will be /ecmws/resources/health/
+{db,json/db}
+For Winter17 and further releases - /ecmws/resources/health/
+{json/node,node}
 
+HT:
+» curl -s https://ampleon-stg.modeln.com/services/ExportInfo\?wsdl | grep wsdlsoap:address 
+                           <wsdlsoap:address location="https://ampleon-stg.modeln.com/services/ExportInfo"/>
+
+
+
+https://allegro.modeln.com/j/wl?WPAGE=cm.system.html.ServerHealthPage&JMETH=init&CHECK_DB_POOL=1
+
+ curl -vvvk --cert /home/ec2-user/q.pem --key /home/ec2-user/q.ley https://test:443 --resolve test:443:10.103.5.5

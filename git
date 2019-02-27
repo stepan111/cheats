@@ -116,3 +116,17 @@ git push  origin revitas-dev
 git push -d origin revitas-dev
 git checkout master
 git branch -d revitas-dev
+
+# Git move some files/ directories to newest master
+git fetch <remote> <rbranch>:<lbranch> 
+git checkout master
+git checkout terraform-dev2 
+git ls-tree --name-only -r terraform-dev
+git checkout terraform-dev -- subnets
+git status
+git ls-tree --name-only -r terraform-dev | less 
+git checkout terraform-dev -- ansible_modules/ec2_subnets_finder
+git status
+git commit -am "Update terraform dev newest master" 
+
+

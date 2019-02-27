@@ -20,3 +20,7 @@ ps ax  |  python -c 'import re, sys; [ sys.stdout.write(re.match("^\s*(\d*).*$",
 
 # Parese print json filed with python
 python -c "import json, sys; print json.load(sys.stdin)[0][u'messages']"
+
+# multiline python command https://stackoverflow.com/questions/2043453/executing-python-multi-line-statements-in-the-one-line-command-line
+python -c "exec(\"import urllib, json ; \ntry: print len([ value  for key,value in json.loads(urllib.urlopen('http://127.0.0.1:9010/jolokia/read/com.modeln:name=User_Sessions/Sessions').read())['value'].iteritems() if key != '0']);\nexcept: print '0'\" )"
+

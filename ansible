@@ -61,6 +61,20 @@ ok: [host2]: => {
   with_items: "{{ play_hosts }}"
   run_once: True
 
+# And with role
+- name: Iterate sg-mount role
+    include_role:
+      name: sg-mount
+    vars:
+      instanceID: "{{ hostvars[item].ec2_id }}"
+      file_share_id: "share-869511EC"
+      mount_point: "{{ shared_dir }}"
+      s3path: "{{ externalName }}"
+      mountAction: "create"
+    delegate_to: "{{ item }}"
+    with_items: "{{ ansible_play_hosts }}"
+    run_once: True
+    tags: cluster_prerequisits
 
 # Variable for all hosts in group
         - name: Set hugememory value
@@ -75,3 +89,10 @@ ok: [host2]: => {
 # Check for pattern
 - fail: msg="There is conflicts {{ outer_item.patchid }}"
      when: 'oracle_conflict_patches.stdout is search("Prereq.+failed")'
+
+
+#  true false check 
+
+  - { role: revitas-flexbi,   cognos_version: "{{ cognosVersion }}",
+      BIlicensedCustomer: "{{ True if 'analyzer' in subscription else False }}",
+      tags: ['ecmbi'] }

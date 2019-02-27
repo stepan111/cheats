@@ -1,0 +1,50 @@
+
+
+# Mikrotik Commands Wi fi WPA2-PSk configure
+# http://mikrotik.vetriks.ru/wiki/Wi-Fi:%D0%9D%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B0_%D0%B1%D0%B5%D1%81%D0%BF%D1%80%D0%BE%D0%B2%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9_%D1%81%D0%B5%D1%82%D0%B8_Wi-Fi
+
+/interface bridge port
+add bridge=bridge-local interface=wlan1
+
+/interface wireless security-profiles
+set [ find default=yes ] supplicant-identity=MikroTik
+add authentication-types=wpa2-psk eap-methods="" mode=dynamic-keys name=\
+    profile_local_wi-fi supplicant-identity="" wpa2-pre-shared-key=\
+    Pass66word!
+
+/interface wireless
+set [ find default-name=wlan1 ] adaptive-noise-immunity=ap-and-client-mode \
+    band=2ghz-b/g/n channel-width=20/40mhz-Ce country=russia disabled=no \
+    distance=indoors frequency=auto frequency-mode=regulatory-domain \
+    hw-protection-mode=rts-cts mode=ap-bridge noise-floor-threshold=-110 \
+    security-profile=profile_local_wi-fi ssid=vetriks wireless-protocol=\
+    802.11 wmm-support=enabled
+# Update Mac
+/interface ethernet> set ether1 mac-address=c8:60:00:26:a1:98
+
+#View user section
+[admin@MikroTik] > user
+[admin@MikroTik] /user> export
+admin@MikroTik] /user> add name=stepan password=p@ss  group=full
+
+# disable unneded services
+[admin@MikroTik] /ip service> disable api
+[admin@MikroTik] /ip service> print
+Flags: X - disabled, I - invalid
+ #   NAME                                                 PORT ADDRESS                                                                                   CERTIFICATE
+ 0 XI telnet                                                 23
+ 1 XI ftp                                                    21
+ 2 XI www                                                    80
+ 3   ssh                                                    22
+ 4 XI www-ssl                                               443                                                                                           none
+ 5 XI api                                                  8728
+ 6 XI winbox                                               8291
+ 7 XI api-ssl                                              8729                                                                                           none
+
+# remove from bridge
+/interface bridge port
+disable numbers=0
+export
+
+/ip dhcp-client
+add comment=defconf dhcp-options=hostname,clientid disabled=no interface=sfp1
