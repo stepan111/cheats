@@ -129,4 +129,20 @@ git checkout terraform-dev -- ansible_modules/ec2_subnets_finder
 git status
 git commit -am "Update terraform dev newest master" 
 
+# Reset file to specific version
+ git log -- user-data-aws-master.tpl
+ git checkout dfc0bcca0c34220431efaabe36bb67b2ac5db491 -- user-data-aws-master.tpl
 
+# Check git internals
+t» git cat-file -t f9125a6ca14f68e189d2426b4030e9777a5aec0e
+commit
+» git cat-file -p f9125a6ca14f68e189d2426b4030e9777a5aec0e
+
+
+# Update origin
+git remote set-url origin ssh://git@127.0.0.1:2022/dev/captcha-test.git
+
+
+
+# list remote branches 
+git branch -r origin

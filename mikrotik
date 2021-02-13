@@ -48,3 +48,19 @@ export
 
 /ip dhcp-client
 add comment=defconf dhcp-options=hostname,clientid disabled=no interface=sfp1
+
+#Update 
+/system package update check-for-updates
+/system reboot
+
+
+
+# config backup
+# wiki - https://wiki.mikrotik.com/wiki/Using_SSH_for_system_backup
+[stepan@48] > export file=config_backup_48-13-09-2019
+notebook : 12:45PM : ~ :  » cd Documents/Mikrotik 
+notebook : 12:45PM : Mikrotik :  » scp 48:config_backup_48-13-09-2019.rsc .
+
+# Restore configuration
+# https://wiki.mikrotik.com/wiki/Manual:Configuration_Management#Importing_Configuration
+import address.rsc

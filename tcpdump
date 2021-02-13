@@ -69,3 +69,9 @@ tcpdump -X
 [root@vi-sdz-tflex1 ~]# tcpdump -i nflog:30
 tcpdump: packet printing is not supported for link type NFLOG: use -w
 [root@vi-sdz-tflex1 ~]# tcpdump -i nflog:30 -w mnadmin.pcap
+
+
+#Dump SSL Sessions
+# https://www.comparitech.com/net-admin/decrypt-ssl-with-wireshark/
+export SSLKEYLOGFILE=./sslkeykog
+tcpdump -i eth0 ...

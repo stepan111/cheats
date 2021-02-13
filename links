@@ -1,0 +1,2 @@
+#Render simple html to stdout
+links -dump   https://astrazeneca-dev.modeln.com/modeln/BusinessNetwork\?heartbeat\=true\&diagnostics\=true

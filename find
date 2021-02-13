@@ -45,3 +45,6 @@ find . -type f -samefile MY_FILE_HERE 2>/dev/null
 
 # By modification time
 find .  -cmin -5
+
+
+find .  -mtime +30 -type f | xargs -n1 gzip

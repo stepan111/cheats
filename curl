@@ -67,3 +67,10 @@ HT:
 https://allegro.modeln.com/j/wl?WPAGE=cm.system.html.ServerHealthPage&JMETH=init&CHECK_DB_POOL=1
 
  curl -vvvk --cert /home/ec2-user/q.pem --key /home/ec2-user/q.ley https://test:443 --resolve test:443:10.103.5.5
+
+#Cognos dispatcher healthchecks
+curl localhost:9300/p2pd/servlet/gc
+curl localhost:9300/p2pd/servlet
+
+# Hundreds mb > indices in es 
+curl --silent --request GET elastic:$es_password@localhost:9200/_cat/indices?v | awk '$9 ~/[0-9]{3}.*mb|gb/{print}'

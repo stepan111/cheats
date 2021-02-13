@@ -1,0 +1,48 @@
+
+Split braine
+
+GC death spiral
+
+cache misses
+
+dependency hell
+
+Callback Hell
+
+VM sprawl
+
+golden images
+
+cascading failure
+
+race condition
+
+Load shedding
+
+Exponential Backoff
+
+Query of Death
+
+CAP Theorem:
+The logic is intuitive: if two nodes can’t communicate (because the network is parti‐
+tioned), then the system as a whole can either stop serving some or all requests at
+some or all nodes (thus reducing availability), or it can serve requests as usual, which
+results in inconsistent views of the data at each node.
+
+TCP/IP slow start
+
+round-trip-time
+
+replicated state machine.
+
+Byzantine fault tolerance
+
+edge cases
+
+secret sprawl - passwords hardcoded in apps, stored in multiple configs all over the infrastructure
+
+noizy neighbour - when tenant utilize all resources in multitenant env
+
+Merging strategies:
+Git Flow 
+Trunk Based Development

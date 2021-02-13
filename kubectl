@@ -2,3 +2,131 @@ https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/
 
 
 KUBECONFIG=./kube kubectl config view
+
+# List pods running in default namespace
+kubectl get pods -o wide
+
+# Disable node from scheduler. 
+kubectl drain slave1
+kubectl describe node slave1 | grep -i taint
+
+# Update the node taint such that the scheduler will use the node again
+kubectl uncordon slave1
+kubectl describe node slave1 | grep -i taint
+
+
+# The following shows what user bob could do in the default namespace and the developer namespace, using the auth can-i subcommand to query: 
+$ kubectl auth can-i create deployments
+yes 
+$ kubectl auth can-i create deployments --as bob
+no 
+$ kubectl auth can-i create deployments --as bob --namespace developer
+yes 
+
+
+# The basic server information, with redacted TLS certificate information, can be found in the output of
+kubectl config view
+
+
+# Show rollout history
+kubectl rollout history rs
+kubectl rollout history ds
+kubectl rollout history deploy
+
+# Get change detail
+kubectl rollout history ds ds-two --revision=2
+
+# Rollback deployment to previous revision
+kubectl rollout undo ds ds-one --to-revision=1
+
+
+# Delete resources based on label
+kubectl delete pod,deployment -l system=secondary -n accounting
+
+# Create service/ expose deployment
+kubectl -n accounting expose deployment nginx-one # ClusterIp is default
+kubectl -n accounting expose deployment nginx-one --type=NodePort --name=service-lab
+
+
+# Get Persistant Volumes
+kubectl -n small get pv
+# Get Persistant volumes Claims
+kubectl -n small get pvc
+# Get Resource limits
+ kubectl -n small get resourcequota
+ kubectl describe ns small
+
+# Edit resource quota
+ kubectl -n small edit resourcequota
+
+# Same for limits
+kubectl edit -n test limits
+
+
+# List lots of resources in namespace
+kubectl get all -n kube-system
+# kubectl api-resources enumerates the resource types available in your cluster
+# this means you can combine it with kubectl get to actually list every instance of every resource type in a namespace:
+kubectl api-resources --verbs=list --namespaced -o name   | xargs -n 1 kubectl get --show-kind --ignore-not-found -n test
+# Also kubectl get events produce lot's of text. We can remove it
+kubectl api-resources --verbs=list --namespaced -o name   | grep -v events |xargs -n 1 kubectl get --show-kind --ignore-not-found
+
+# Check apigroup / kind matching
+kubectl api-resources -o wide
+
+# Delete all pods in namespace
+kubectl delete --all pods  -n default
+
+# Show nodes with their labels
+kubectl get nodes --show-labels
+
+# Gets the token value
+TOKEN=$(kubectl get secrets -o jsonpath="{.items[?(@.metadata.annotations['kubernetes\.io/service-account\.name']=='default')].data.token}"|base64 --decode)
+
+# Search for kinds api version
+kubectl proxy
+curl 127.0.0.1:8001/apis -s | jq .groups[].versions[].groupVersion
+curl -s  127.0.0.1:8001/apis/apps/v1 | jq .resources[].kind
+
+# Check with SA permissions
+export TOKEN=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+curl https://metrics-server/metrics -k --header "Authorization: Bearer $TOKEN" 
+
+# Run kubectl over proxy
+export  https_proxy=socks5://localhost:8000
+
+
+# check node podCIDRs
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+
+# Run busybox
+ # kubectl run -i --tty curl --image=curlimages/curl x-n kube-system -- sh
+ # kubectl delete po curl -n kube-system
+
+
+# Verify who requested cpu/memory
+kubectl get pods -A -o=custom-columns='NAME:metadata.name, NAMERSPACE:metadata.namespace ,MEM:spec.containers[*].resources.requests.memory, CPU:spec.containers[*].resources.requests.cpu, Node:spec.nodeName '
+
+# Change context to custom namespace
+kubectl config set-context --current --namespace=<insert-namespace-name-here>
+
+
+# Check OOM 
+kubectl get po monitoring-es-master-2 -o jsonpath={.status} | jq . 
+
+*** 
+
+ "containerStatuses": [        
+    {               
+      "containerID": "docker://13e2bbea9d5ba3d0a689d422e4541e90aba2368519767753e4ede00d79b41132",
+      "image": "docker.elastic.co/elasticsearch/elasticsearch:7.10.1",
+      "imageID": "docker-pullable://docker.elastic.co/elasticsearch/elasticsearch@sha256:5d8f1962907ef60746a8cf61c8a7f2b8755510ee36bdee0f65417f90a38a0139",
+      "lastState": {                                                                                 
+        "terminated": { 
+          "containerID": "docker://c91eb332012d57e53a1d1adbf8073e890d0ee863ab5f09c5902267dfd07288d4",
+          "exitCode": 137,      
+          "finishedAt": "2021-02-04T07:54:54Z",
+          "reason": "OOMKilled",
+          "startedAt": "2021-02-04T06:43:22Z"
+
+***

@@ -13,3 +13,7 @@ terraform plan
 
 # Apply changes
 terraform apply
+
+
+# Special resources for 0.12 describe interations with count/for_each/each , multi-provider configfuration / lifecycle /provisioners / timoutes
+https://www.terraform.io/docs/configuration/resources.html

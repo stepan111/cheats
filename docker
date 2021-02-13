@@ -27,3 +27,6 @@ docker ps -a
 
 # list all images
 docker images
+
+# top analog
+watch "sudo docker stats --all --no-stream --format \"table {{.Name}}\t{{.CPUPerc}}\t{{.MemPerc}}\t{{.MemUsage}}\" | grep -v MEM |sort -k 3 -n "

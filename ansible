@@ -16,7 +16,7 @@ export ANSIBLE_LOAD_CALLBACK_PLUGINS=1
 ANSIBLE_STDOUT_CALLBACK=minimal /usr/bin/ansible-playbook ${WORKSPACE}/Ansible/Revitas/install.yml --tags "${Tags}"
 timer - callback that show only execution time of playbook
 
-# We can use python inside ansible
+# We can use jinja2 inside ansible strings
 - name: run some command
    command: echo item {{item}}
    register: my_result
@@ -47,6 +47,9 @@ ok: [host2]: => {
         "the result was: item 3"
     ]
 }
+
+#Multiline strings in ansible
+https://yaml-multiline.info/
 
 # if you need to show dict it is better to transform it to nice json
 - fail:
@@ -96,3 +99,39 @@ ok: [host2]: => {
   - { role: revitas-flexbi,   cognos_version: "{{ cognosVersion }}",
       BIlicensedCustomer: "{{ True if 'analyzer' in subscription else False }}",
       tags: ['ecmbi'] }
+
+# regex search in failed_when in multiline output
+register: ecmf_configmigrate
+  failed_when: >
+    ( not ecmf_configmigrate.stdout | regex_search("^BUILD SUCCESSFUL", multiline=True) ) and
+    ("No such file or directory" not in ecmf_configmigrate.stdout )
+  changed_when: >
+    (  ecmf_configmigrate.stdout | regex_search("^BUILD SUCCESSFUL", multiline=True) )
+
+# Validate that string in the output
+    - name: try https://{{ bastion_dns }}
+      uri:
+        url: "https://{{ bastion_dns }}/signin"
+        return_content: yes
+        validate_certs: no
+      register: result
+      retries: 3
+      delay: 10
+      until: result.content.find("Subspace") != -1
+
+# indexed item - https://docs.ansible.com/ansible/latest/plugins/lookup/indexed_items.htmlhttps://docs.ansible.com/ansible/latest/plugins/lookup/indexed_items.html
+- name: indexed loop demo
+  debug:
+    msg: "at array position {{ item.0 }} there is a value {{ item.1 }}"
+  with_indexed_items:
+    - "{{ some_list }}"
+
+# create dict inside jinja2
+        recovery_keys: "{% set output = dict() %}
+                {% for line in init_out.stdout_lines -%}
+                  {% if line.find('Recovery Key') != -1 -%}
+                    {% set index =  output | length %}
+                    {% set _ = output.update( { 'recovery_key_' + index | string  : line.split(':')[1] | trim } )  %}
+                  {%- endif %}
+                {%- endfor %}
+                {{ output }}"

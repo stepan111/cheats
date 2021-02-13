@@ -3,3 +3,7 @@ date +"%Y%m%d_%H%M%S"
 
 # Convert Unix timestamp to Date
 date -d @1440359821
+
+
+# + 1 houre in microseconds since epoch
+date +"%s%6N" -d '1 hour'

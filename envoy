@@ -1,0 +1,7 @@
+
+curl -XGET  http://127.0.0.1:8001/config_dump -s  | jq '.configs[0].bootstrap.static_resources.listeners' | less
+
+curl -XGET  http://127.0.0.1:8001/config_dump -s  | jq '.configs[2].dynamic_listeners' | less
+
+
+curl -XGET  http://127.0.0.1:8001/server_info  -s  | less

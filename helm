@@ -1,0 +1,18 @@
+helm install \
+  camel-k \
+  --set platform.build.registry.address=harbor.infra.digaweb.com \
+  --set platform.build.registry.secret=harbor \
+  --set platform.build.registry.organization=op \
+  camel-k/camel-k -n magescanner
+
+# Show availible version for chart
+helm search repo camel-k/camel-k --versions
+
+# Create simple local chart
+helm create chartname
+
+# List installed charts with versions
+helm list             
+NAME    NAMESPACE       REVISION        UPDATED                                 STATUS          CHART           APP VERSION
+harbor  harbor          2               2020-11-05 10:43:49.446995448 +0000 UTC deployed        harbor-1.4.3    2.0.3      
+

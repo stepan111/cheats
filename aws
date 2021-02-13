@@ -7,3 +7,6 @@ ec2 describe-instances --filters  --query 'Reservations[].Instances[][Placement.
 aws ec2 describe-instances --filters Name=tag:ExternalName,Values=cops-test-flex.cloud.modeln.com Name=instance-state-name,Values=running,stopped --region us-east-1 --profile cloudops-dev --output json --query 'Reservations[*].Instances[].{ID:InstanceId,NAME:Tags[?Key==`Name`]|[0].Value}' 
 
 aws ec2 describe-instances --filters Name=tag:ExternalName,Values=gilead.cloud.modeln.com Name=instance-state-name,Values=running,stopped --region us-east-1 --profile mn-cloudops --output json --query '{IPS:Reservations[*].Instances[*].NetworkInterfaces[?Status ==`in-use`][PrivateIpAddress][][][]}' 
+
+# Update permissions for s3 obnjectwq
+aws s3api put-object-acl --profile default --bucket vi-modeln-config --key terraform/Rainkaer2020/Rainmaker2020_AWS-Azure-resources --grant-full-control emailaddress=aws-rainmaker@modeln.com,emailaddress=aws-cloudops@modeln.com

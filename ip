@@ -32,3 +32,38 @@ ip link set dev eth0 address aa:bb:cc:dd:ee:ff
 ip neighbor show
 
 # Get only address of interface edge0
+ip -o a show dev eth0 | awk '{print $4}' | awk -F\/ '{print $1}'
+
+
+#VXLAN
+[root@vi-cangenepoc-vcog1 sbirukov]#:
+modprobe vxlan
+ip l add name vxlan3 type vxlan id 45 dstport 4789
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.106 dev vxlan3
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.41 dev vxlan3
+ip a add 192.168.0.3/24 dev vxlan3
+ip l set up dev vxlan3
+
+
+[root@vi-cangenepoc-vflex1 sbirukov]#:
+modprobe vxlan
+ip l add name vxlan3 type vxlan id 45 dstport 4789
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.102 dev vxlan3
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.41 dev vxlan3
+ip a add 192.168.0.1/24 dev vxlan3
+ip l set up dev vxlan3
+
+
+[root@vi-flexpoc-admin1 sbirukov]#
+modprobe vxlan
+ip l add name vxlan3 type vxlan id 45 dstport 4789
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.102 dev vxlan3
+bridge fdb append to 00:00:00:00:00:00 dst 172.31.254.106 dev vxlan3
+ip a add 192.168.0.2/24 dev vxlan3
+ip l set up dev vx
+lan3
+
+
+ip l set down dev vxlan3
+ip l del dev vxlan3
+rmmod vxlan

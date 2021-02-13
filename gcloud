@@ -1,0 +1,4 @@
+# Filter service account by RE match in email field
+# Filter examples: https://cloud.google.com/sdk/gcloud/reference/topic/filters
+# Format examples: https://cloud.google.com/sdk/gcloud/reference/topic/formats
+gcloud iam service-accounts list --format=json --filter="email ~ terraform" | jq '.[0].email'
